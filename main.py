@@ -94,26 +94,25 @@ while True:
 
 
 
-2차과제 코드 제출
+＃ ２차 과제 제출
 #[1] 변수 선언 (5개 이상:이름, 나이, 체중, 지수, 칭호 등)
-pet_name = ""     #str
 pet_age = 0       #int
 pet_weight = 0,0  #float
 health_index = 0,0 #float
 special_title = "" #str
 
 #[2] 입출력 포매팅 ＆ 형변환
-ｐｒｉｎｔ（“－－－ｑ반려동물 정밀 건강 진단 시스템－－－”）
 ｐｅｔ—ｎａｍｅ ＝ ｉｎｐｕｔ（“반려동물 이름 입력： ”）
 ｐｅｔ—ａｇｅ ＝ ｉｎｔ（ｉｎｐｕｔ（“나이 입력（정수）： ”））
-ｐｅｔ—ｗｅｉｇｈｔ ＝ ｆｌｏａｔ（ｉｎｐｕｔ（“현재 몸무게（ｋｇ）： ”））
+ｐｅｔ—ｗｅｉｇｈｔ ＝ ｆｌｏａｔ（ｉｎｐｕｔ（“현재 몸무게（ｋｇ）： ”））ｐｒｉｎｔ（“－－－ｑ반려동물 정밀 건강 진단 시스템－－－”）
+ｐｅｔ—ｎａｍｅ  ＝ 
 
 ＃｢３｣ 리스트 입력 및 ｆｏｒ문 활용 （활동 수치 ３개 입력）
 ＃활동 데이터：｢산책 시간、 식사량、 수면 시간｣
 ａｃｔｉｖｉｔｙ—ｄａｔａ ＝ ［］
 ａｃｔｉｖｉｔｙ—ｎａｍｅｓ ＝［“산책 시간９분）”、 “식사량（ｇ）”、“수면 시간（시간）” ｣
 
-ｆｏｒ ｉ ｉｎ ｒａｎｇｅ（３） ：
+ｉ ｉｎ ｒａｎｇｅ（３） ：
       ｖａｌｕｅ ＝ ｆｌｏａｔ９ｉｎｐｕｔ（ｆ“오늘의｛ａｃｔｉｖｉｔｙ—ｎａｍｅｓ［ｉ］｝을 입력하세요： ”）
       ａｃｔｉｖｉｔｙ—ｄａｔａ。ａｐｐｅｎｄ（ｖａｌｕｅ） ＃［４］ 리스트 조작１ （ａｐｐｅｎｄ）
 
@@ -157,3 +156,68 @@ special_title = "" #str
 ｐｒｉｎｔ（ｆ“ 특별 칭호：＜｛ｓｐｅｃｉａｌ—ｔｉｔｔｌｅ｝＞”）
 ｐｒｉｎｔ（ｆ“ 최고 기록 수치：｛ｍａｘ—ｖａｌ｝”） 
 ｐｒｉｎｔ（“—”＊３０）
+
+
+
+# [1] 변수 선언 (5개 이상: 이름, 나이, 체중, 지수, 칭호 등)
+pet_name = ""        # str
+pet_age = 0          # int
+pet_weight = 0.0     # float
+health_index = 0.0   # float
+special_title = ""   # str
+
+# [2] 입출력 포매팅 & 형변환
+print("--- 🐾 반려동물 정밀 건강 진단 시스템 ---")
+pet_name = input("반려동물 이름 입력: ")
+pet_age = int(input("나이 입력(정수): "))
+pet_weight = float(input("현재 몸무게(kg): "))
+
+# [3] 리스트 입력 및 for문 활용 (활동 수치 3개 입력)
+# 활동 데이터: [산책 시간, 식사량, 수면 시간]
+activity_data = []
+activity_names = ["산책 시간(분)", "식사량(g)", "수면 시간(시간)"]
+
+for i in range(3):
+    value = float(input(f"오늘의 {activity_names[i]}을 입력하세요: "))
+    activity_data.append(value) # [4] 리스트 조작 1 (append)
+
+# [4] 리스트 조작 (메소드/내장함수 4종: append, sum, len, max)
+total_activity = sum(activity_data)    # 2. sum 활용
+avg_activity = total_activity / len(activity_data) # 3. len 활용
+max_val = max(activity_data)           # 4. max 활용
+
+# [5, 6] 가중치 연산 및 복합 대입 연산자 활용
+# 종합 건강 지수 공식: (산책 * 1.5) + (식사 * 0.8) + (수면 * 1.2)
+health_index += (activity_data[0] * 1.5) 
+health_index += (activity_data[1] * 0.8)
+health_index += (activity_data[2] * 1.2)
+
+# [7] 제어구조 (if-elif-else 5단계 등급 판정)
+grade = ""
+if health_index >= 200:
+    grade = "S (최상의 컨디션)"
+elif health_index >= 150:
+    grade = "A (건강함)"
+elif health_index >= 100:
+    grade = "B (보통)"
+elif health_index >= 50:
+    grade = "C (주의)"
+else:
+    grade = "F (관리 시급)"
+
+# [5, 7] 논리 연산자(and/or)를 활용한 특별 칭호 부여 (중첩/독립 if)
+if activity_data[0] >= 60 and health_index >= 180:
+    special_title = "전설의 산책왕"
+elif activity_data[1] >= 500 or activity_data[2] >= 15:
+    special_title = "잠만자는 먹보 대장"
+else:
+    special_title = "평범한 귀요미"
+
+# 최종 결과 출력 (f-string 포매팅)
+print("-" * 30)
+print(f"▶ [{pet_name}]의 진단 결과")
+print(f"▶ 종합 건강 지수: {health_index:.2f}점")
+print(f"▶ 최종 등급: {grade}")
+print(f"▶ 특별 칭호: < {special_title} >")
+print(f"▶ 최고 기록 수치: {max_val}")
+print("-" * 30)
