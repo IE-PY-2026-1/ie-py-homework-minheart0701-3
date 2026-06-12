@@ -327,3 +327,91 @@ while True:
     else:
         print("\n 올바르지 않은 번호입니다. 1번부터 3번 사이의 숫자를 입력해주세요.")
               
+
+#4차과제
+#==============================================================
+#[4단계 필수 포함 요구사항 반영]
+#1. 이중 리스트 활용 / 2. 이중 순회 출력 / 3. 파일 저장 / 4. 예외 처리 2곳 이상
+#==============================================================
+
+#[요구사항 4-1] 예외 처리 기능이 포함된 안전한 숫자 입력 함수
+def input_int(message) :
+    while True:
+        try:
+            return int(input(message))
+        except ValueError:
+            print("에러: 숫자로만 정확하게 입력해 주세요.")
+
+#데이터 분석을 위한 단순 계산 함수
+def analyze_health(walk,food):
+    if walk < 30:
+        return "산책부족"
+    elif food > 200:
+        return "과식 주의"
+    else:
+         return "건강 양호"
+
+[요구사항 1] 여러 항목의 데이터를 관리할 이중 리스트 초기화
+구조: [[이름,산책시간,사료량,분석결과], ...]
+et_database = []
+
+print("우리 집 막내 건강 지킴이 V3.0을 시작합니다.")
+
+while True:
+    print("\n[메인 메뉴]")
+    print("1. 새 반려동물 기록 추가")
+    print("2. 전체 기록 보기 (이중 순회)")
+    print("3. 데이터를 파일로 저장 및 종료")
+
+    #메뉴 선택 시 발생할 수 있는 에러 방지를 위해 문자열로 받음
+    menu = input("원하는 메뉴 번호를 입력하세요:")
+
+    if menu == "1":
+        print("\n--- 새로운 기록 추가 ---")
+        name = input("반려동물 이름:")
+
+        #안전하게 정수형 데이터 입력 받기(예외 처리 함수 활용)
+        walk = input_int(f"{name}의 오늘 산책 시간(분):")
+        food = input_int(f"{name}의 오늘 사료 섭취량(g):")
+
+        #데이터 가공 및 분석
+        result = analyze_health(walk,food)
+
+        #[요구사항1] 새로운 데이터를 이중 리스트에 append로 누적
+        pet_database.append([name,walk,food,result])
+        print(f"{name}의 데이터가 성공적으로 등록되었습니다.")
+
+    elif menu == "2":
+        print("\n + "="*50")
+        print(f"{'이름':<8}{'산책(분)':<10}{'사료(g)':<10}{'상태 진단'}")
+        print("="*50)
+
+        #[요구사항 2] 중첩 for문(이중 순회)을 활용하여 표 형식으로 출력
+        if not pet_database:
+             print("등록된 반려동물 데이터가 없습니다.")
+        else:
+            for pet in pet_database:
+                forr item in pet:
+                     print(f"{str(item):<12, end=""}")
+                print()
+        print("="*50)
+
+    elif menu == "3":
+        print("\n 안전하게 데이터를 저장하고 프로그램을 종료합니다.")
+
+        #[요구사항 3 & 4-2]파일 저장(write) 및 파일 관련 예외 처리
+        try:
+            with open("pet_health_report.txt", "w", encoding = "utf-8") as file:
+                file.write("=== 반려동물 건강 일지 최종 보고서 === \n")
+
+                #파일에 저장할 때도 이중 리스트 순회 활용
+                for pet in pet-database:
+                    file.write(f"이름:{pet[0]} , 산책: {pet[1]}분 , 사료: {pet[2]}g, 상태:{pet[3]}\n")
+            print("'pet_health_report.txt' 파일 저장 완료!")
+        
+        except I0Error: #파일 입출력 에러 처리
+            print("에러: 파일에 데이터를 쓰는 중 문제가 발생했습니다.")
+            break
+            
+        else:
+            print("잘못된 메뉴 선택입니다. 1,2,3번 중에서 골라주세요.")
